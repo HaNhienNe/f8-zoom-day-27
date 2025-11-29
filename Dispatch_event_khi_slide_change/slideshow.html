@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispatch event khi slide change</title>
+    <link rel="stylesheet" href="./moki_slide.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #demo-slide {
+            height: min(800px, 100dvh);
+            width: min(500px, 100dvw);
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div id="demo-slide">
+            <div class="moki-slide">
+                <div class="moki-slide-item" data-image="./images/img1.png"></div>
+                <div class="moki-slide-item" data-image="./images/img2.png"></div>
+                <div class="moki-slide-item" data-image="./images/img3.png"></div>
+                <div class="moki-slide-item" data-image="./images/img4.png"></div>
+                <div class="moki-slide-item" data-image="./images/img5.png"></div>
+            </div>
+        </div>
+    </div>
+    <script src="./moki_slide.js"></script>
+    <script src="./slideshow.js"></script>
+</body>
+
+</html>
