@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moki editor</title>
+    <link class="prism-theme" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css    ">
+</head>
+
+<body>
+    <header class="header">
+        <div class="action-left">
+            <button class="btn save-button" title="Save Code">
+                <i class="ri-save-line"></i>
+            </button>
+
+        </div>
+        <div class="action-right">
+            <button class="btn mode-button">
+                <i class="ri-sun-line"></i>
+            </button>
+            <button class="btn" title="Close Preview">
+                <i class="ri-contract-right-line"></i>
+            </button>
+        </div>
+
+
+    </header>
+
+    <main class="app">
+        <div class="editor">
+            <pre class="highlight dark"><code class="language-html line-numbers"></code></pre>
+            <textarea class="code"></textarea>
+        </div>
+        <div class="resize"></div>
+        <div class="view">
+            <div class="iframe-overlay"></div>
+            <iframe class="i-view" src="" frameborder="0"></iframe>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="./live-code-editor.js"></script>
+</body>
+
+</html>
