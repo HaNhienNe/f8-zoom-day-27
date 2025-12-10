@@ -8,11 +8,11 @@
     <link class="prism-theme" rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./style.css    ">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <header class="header">
+    <header class="header dark">
         <div class="action-left">
             <button class="btn save-button" title="Save Code">
                 <i class="ri-save-line"></i>
@@ -20,10 +20,10 @@
 
         </div>
         <div class="action-right">
-            <button class="btn mode-button">
+            <button class="btn mode-button" title="Dark / Light">
                 <i class="ri-sun-line"></i>
             </button>
-            <button class="btn" title="Close Preview">
+            <button class="btn close__preview-button" title="Hide Preview">
                 <i class="ri-contract-right-line"></i>
             </button>
         </div>
@@ -42,6 +42,29 @@
             <iframe class="i-view" src="" frameborder="0"></iframe>
         </div>
     </main>
+    <div class="contextmenu">
+        <div class="contextmenu-item save-contextmenu">
+            <span class="contextmenu-icon"><i class="ri-save-line"></i></span>
+            <span class="contextmenu-content">Save</span>
+            <span class="contextmenu-hotkey">Ctrl+S</span>
+        </div>
+
+        <div class="contextmenu-item clear-contextmenu">
+            <span class="contextmenu-icon"><i class="ri-eraser-line"></i></span>
+            <span class="contextmenu-content">Clear code</span>
+
+        </div>
+        <div class="contextmenu-item mode-contextmenu">
+            <span class="contextmenu-icon"><i class="ri-sun-line"></i></span>
+            <span class="contextmenu-content">Mode change</span>
+        </div>
+
+        <div class="contextmenu-item close__preview-contextmenu">
+            <span class="contextmenu-icon"><i class="ri-layout-right-2-line"></i></span>
+            <span class="contextmenu-content">Hide preview</span>
+        </div>
+    </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
