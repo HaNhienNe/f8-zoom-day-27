@@ -1,0 +1,103 @@
+body {
+  font-family: "Blinker", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.blinker-thin {
+  font-family: "Blinker", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.blinker-extralight {
+  font-family: "Blinker", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.blinker-light {
+  font-family: "Blinker", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.blinker-regular {
+  font-family: "Blinker", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.blinker-semibold {
+  font-family: "Blinker", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.blinker-bold {
+  font-family: "Blinker", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.blinker-extrabold {
+  font-family: "Blinker", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.blinker-black {
+  font-family: "Blinker", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn.btn-large {
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+}
+
+.btn.btn-small {
+  width: 45px;
+  height: 45px;
+}
+
+.btn.btn-circle {
+  border-radius: 50%;
+}
+
+.btn.active {
+  border-top: 2px solid #f52d76;
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 45, 118, 0.2),
+    rgba(245, 45, 118, 0)
+  );
+}
+
+.btn.active i {
+  background: linear-gradient(45deg, #ff635e, #fd3078);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.85);
+}

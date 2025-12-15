@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tender {
+  position: relative;
+  height: min(800px, 100dvh);
+  width: min(460px, 100dvw);
+  display: flex;
+  flex-direction: column;
+}
+
+.tender__cards {
+  flex: 1;
+}
+
+.card__pagination {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: calc(100% - 24px);
+  background-color: transparent;
+  display: flex;
+  gap: 4px;
+}
+.card__pagination .pagination {
+  background-color: #bdbdbd5f;
+  height: 2px;
+  width: 20%;
+}
+
+.pagination.active {
+  background-color: white;
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: url("./images/img1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.card__info {
+  position: absolute;
+  left: 50%;
+  bottom: 150px;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 12px;
+  color: white;
+  min-height: 196px;
+}
+
+.card__info .info__basic {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 36px;
+  text-transform: capitalize;
+}
+
+.info__name {
+}
+
+.info__age {
+}
+
+.info__status {
+  font-size: 10px;
+}
+
+.info__more {
+  background-color: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(5px);
+  margin-left: auto;
+}
+
+.info__status.on {
+  color: #22c55e;
+}
+
+.info__hashtag {
+  font-size: 12px;
+  display: flex;
+  gap: 16px;
+}
+
+.hashtag {
+  padding: 2px 8px;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(5px);
+  border-radius: 999px;
+}
+
+.info__bio {
+  line-height: 1.45;
+  font-size: 16px;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.card__action {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.card__action .btn {
+  background-color: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(5px);
+}
+
+.card__action .button__unlike {
+  color: #fd3078;
+}
+
+.card__action .button__like {
+  color: #f52d76;
+  background-color: aliceblue;
+  font-size: 40px;
+}
+
+.card__action .button__start {
+  color: #3279bb;
+}
+
+.tender__navigation {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%);
+  width: calc(100% - 24px);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 0 8px;
+}
