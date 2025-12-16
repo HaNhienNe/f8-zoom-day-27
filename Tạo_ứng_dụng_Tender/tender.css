@@ -20,6 +20,23 @@ body {
 
 .tender__cards {
   flex: 1;
+  position: relative;
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: url("./images/img1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.card.card__continue {
+  z-index: 2;
 }
 
 .card__pagination {
@@ -33,24 +50,15 @@ body {
   display: flex;
   gap: 4px;
 }
+
 .card__pagination .pagination {
-  background-color: #bdbdbd5f;
+  background-color: #bdbdbd91;
   height: 2px;
   width: 20%;
 }
 
 .pagination.active {
   background-color: white;
-}
-
-.card {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  background: url("./images/img1.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
 }
 
 .card__info {
@@ -82,7 +90,9 @@ body {
 }
 
 .info__status {
-  font-size: 10px;
+  font-size: 20px;
+  color: #bdbdbd;
+  margin-top: -16px;
 }
 
 .info__more {
@@ -113,6 +123,7 @@ body {
   line-height: 1.45;
   font-size: 16px;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  word-spacing: 3px !important;
 }
 
 .card__action {
@@ -142,10 +153,12 @@ body {
 
 .card__action .button__start {
   color: #3279bb;
+  font-size: 32px;
 }
 
 .tender__navigation {
   position: absolute;
+  z-index: 10;
   left: 50%;
   bottom: 0;
   transform: translate(-50%);

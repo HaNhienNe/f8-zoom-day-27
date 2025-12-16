@@ -52,6 +52,23 @@ body {
   font-style: normal;
 }
 
+/* display */
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline {
+  display: inline;
+}
+
 .btn {
   background-color: transparent;
   border: none;

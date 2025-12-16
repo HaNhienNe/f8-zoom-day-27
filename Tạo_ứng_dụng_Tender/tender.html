@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Moki Tender</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.min.css">
-    <link rel="stylesheet" href="./common.css">
-    <link rel="stylesheet" href="./tender.css">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.min.css"
+    />
+    <link rel="stylesheet" href="./common.css" />
+    <link rel="stylesheet" href="./tender.css" />
+  </head>
 
-<body>
+  <body>
     <div class="tender">
-        <div class="tender__cards">
-            <div class="card__pagination">
-                <span class="pagination"></span>
-                <span class="pagination active"></span>
-                <span class="pagination"></span>
-                <span class="pagination"></span>
-                <span class="pagination"></span>
+      <div class="tender__cards">
+        <div class="card">
+          <div class="card__pagination">
+            <span class="pagination active"></span>
+            <span class="pagination"></span>
+            <span class="pagination"></span>
+            <span class="pagination"></span>
+            <span class="pagination"></span>
+          </div>
+          <div class="card__info">
+            <div class="info__basic">
+              <span class="info__name blinker-regular">Rai sen</span>
+              <span class="info__age">22</span>
+              <span class="info__status on">
+                <i class="ri-verified-badge-fill"></i>
+              </span>
+              <span class="btn btn-circle btn-small info__more">
+                <i class="ri-arrow-up-long-line"></i>
+              </span>
             </div>
-            <div class="card">
-                <div class="card__info">
-                    <div class="info__basic">
-                        <span class="info__name blinker-regular">Rai sen</span>
-                        <span class="info__age">22</span>
-                        <span class="info__status on">
-                            <i class=" ri-circle-fill"></i>
-                        </span>
-                        <span class="btn btn-circle btn-small info__more">
-                            <i class="ri-arrow-up-long-line"></i>
-                        </span>
-                    </div>
-                    <div class="info__hashtag blinker-extralight">
-                        <span class="hashtag"># Harry poster</span>
-                        <span class="hashtag"># Hot yoga</span>
-                        <span class="hashtag"># Self care</span>
-                    </div>
-                    <p class="info__bio blinker-extralight">
-                        Bold energy, sharp mind, and a taste for adventure. I love deep conversations,
-                        spontaneous plans, and people who match my ambition. Bring honesty, humor, and good vibes
-                        only.
-                    </p>
-                </div>
-                <div class="card__action">
-                    <button class="btn btn-circle button__unlike blinker-bold">
-                        <i class="ri-close-large-line"></i>
-                    </button>
-                    <button class="btn btn-circle btn-large button__like">
-                        <i class="ri-heart-3-fill"></i>
-
-                    </button>
-                    <button class="btn btn-circle button__start">
-                        <i class="ri-star-fill"></i>
-                    </button>
-                </div>
-
+            <div class="info__hashtag blinker-extralight">
+              <span class="hashtag"># Harry poster</span>
+              <span class="hashtag"># Hot yoga</span>
+              <span class="hashtag"># Self care</span>
             </div>
+            <p class="info__bio blinker-extralight">
+              Bold energy, sharp mind, and a taste for adventure. I love deep
+              conversations, spontaneous plans, and people who match my
+              ambition. Bring honesty, humor, and good vibes only.
+            </p>
+          </div>
+          <div class="card__action">
+            <button class="btn btn-circle button__unlike blinker-bold">
+              <i class="ri-close-large-line"></i>
+            </button>
+            <button class="btn btn-circle btn-large button__like">
+              <i class="ri-heart-3-fill"></i>
+            </button>
+            <button class="btn btn-circle button__start">
+              <i class="ri-star-fill"></i>
+            </button>
+          </div>
         </div>
-        <div class="tender__navigation">
-            <button class="home btn active">
-                <i class="ri-fire-fill"></i>
-            </button>
-            <button class="list_extension btn ">
-                <i class="ri-function-fill"></i>
-            </button>
-            <button class="list_liked btn ">
-                <i class="ri-hearts-fill"></i>
-            </button>
-            <button class="chat btn ">
-                <i class="ri-chat-heart-fill"></i>
-            </button>
-            <button class="profile btn ">
-                <i class="ri-user-heart-fill"></i>
-            </button>
-        </div>
-
+      </div>
+      <div class="tender__navigation">
+        <button class="home btn active">
+          <i class="ri-fire-fill"></i>
+        </button>
+        <button class="list_extension btn">
+          <i class="ri-function-fill"></i>
+        </button>
+        <button class="list_liked btn">
+          <i class="ri-hearts-fill"></i>
+        </button>
+        <button class="chat btn">
+          <i class="ri-chat-heart-fill"></i>
+        </button>
+        <button class="profile btn">
+          <i class="ri-user-heart-fill"></i>
+        </button>
+      </div>
     </div>
     <script src="./tender.js"></script>
-</body>
-
+  </body>
 </html>
