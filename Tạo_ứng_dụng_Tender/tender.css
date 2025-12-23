@@ -12,10 +12,12 @@ body {
 
 .tender {
   position: relative;
-  height: min(800px, 100dvh);
+  height: min(960px, 100dvh);
   width: min(460px, 100dvw);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  touch-action: none;
 }
 
 .tender__cards {
@@ -33,6 +35,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  user-select: none;
 }
 
 .card.card__continue {
@@ -159,16 +162,14 @@ body {
 .tender__navigation {
   position: absolute;
   z-index: 10;
-  left: 50%;
+  left: 0;
   bottom: 0;
-  transform: translate(-50%);
-  width: calc(100% - 24px);
+  width: calc(100%);
   height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  border-radius: 8px;
   padding: 0 8px;
 }
