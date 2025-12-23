@@ -1,4 +1,3 @@
-console.log("tender.js");
 const $ = (sel, doc = document) => doc.querySelector(sel);
 const $$ = (sel, doc = document) => doc.querySelectorAll(sel);
 const DATA = `[
@@ -51,8 +50,7 @@ const DATA = `[
     "photos": [
       "./images/img3.png",
       "./images/img3_1.png",
-      "./images/img3_2.png",
-      "./images/img3_3.png"
+      "./images/img3_2.png"
     ],
     "tags": ["Street photography", "Night drives", "Indie music"],
     "bio": "Creative mind, old soul. I see beauty in small details and love quiet moments mixed with random adventures. If you enjoy deep talks at 2AM, we’ll get along just fine."
@@ -68,6 +66,7 @@ const DATA = `[
     "verified": false,
     "photos": [
       "./images/img4.png",
+      "./images/img4_4.png",
       "./images/img4_1.png",
       "./images/img4_2.png",
       "./images/img4_3.png"
@@ -105,7 +104,6 @@ const DATA = `[
     "verified": false,
     "photos": [
       "./images/img6.png",
-      "./images/img6_1.png",
       "./images/img6_2.png"
     ],
     "tags": ["Sunset chasing", "Film cameras", "Slow living"],
@@ -140,7 +138,13 @@ const refsMulti = {
 
 const inits = {
   data: JSON.parse(DATA),
-  currtentIndex: 2,
+  currtentIndex: 0,
+  threshold: 0.12, // 12%
+  canMove: false,
+  start: 0,
+  end: 0,
+  range: 0,
+  photoIndex: 0,
 };
 
 function Tender() {}
@@ -171,6 +175,7 @@ Tender.prototype._loadElements = function () {
 
 Tender.prototype._initValues = function () {
   this._mapValues(inits);
+  this._createRandomTender(0, this.data.length - 1, true);
 };
 
 Tender.prototype._loadData = function () {
@@ -178,17 +183,73 @@ Tender.prototype._loadData = function () {
   this.data = JSON.parse(dataLocal) ?? this.data;
 };
 
-Tender.prototype._loadEvents = function () {};
+Tender.prototype._loadEvents = function () {
+  this.card.addEventListener("pointerdown", (e) => {
+    this.canMove = true;
+    this.start = e.clientX;
+    this.end = this.start;
+  });
+
+  this.card.addEventListener("pointermove", (e) => {
+    if (!this.canMove) return;
+    this.card.style.transition = `none`;
+    this.end = e.clientX;
+    this.range = this.start - this.end;
+    this.card.style.transform = `translateX(${this.range * -1}px)`;
+  });
+
+  this.card.addEventListener("pointerup", (e) => {
+    console.log("pointerup");
+    this.canMove = false;
+    const isContinue =
+      Math.abs(this.range / this.card.offsetWidth) >= this.threshold;
+    this.card.style.transition = `all .3s ease`;
+    if (isContinue) {
+      this.card.style.transform = "scale(0)";
+      this.card.style.opacity = "0";
+      setTimeout(() => {
+        this._createRandomTender();
+        this._render();
+      }, 300);
+    } else {
+      this.card.style.transform = `translateX(0px)`;
+    }
+    const rect = this.card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const isNextPhoto = x >= this.card.offsetWidth / 2;
+
+    if (isNextPhoto && this.range === 0) {
+      this._nextOrPrevPhoto(1);
+    } else if (this.range === 0) {
+      this._nextOrPrevPhoto(-1);
+    }
+  });
+
+  this.card.addEventListener("transitionend", (e) => {
+    if (e.propertyName !== "transform") return;
+
+    this.card.style.transition = `none`;
+    this.card.style.transform = `scale(1)`;
+    this.card.style.opacity = "1";
+    this.start = 0;
+    this.end = 0;
+    this.range = 0;
+  });
+};
+
 Tender.prototype._render = function () {
-  this.infoName.textContent = this.tenderCurent.name;
-  this.infoAge.textContent = this.tenderCurent.age;
-  this.infoStatus.classList.toggle("on", this.tenderCurent.verified);
-  this.infoHashtag.innerHTML = this.tenderCurent.tags
+  this.photoIndex = 0;
+  this.tenderCurrent = this.data[this.currtentIndex];
+  this.tenderContinue = this.data[this.continueIndex];
+  this.infoName.textContent = this.tenderCurrent.name;
+  this.infoAge.textContent = this.tenderCurrent.age;
+  this.infoStatus.classList.toggle("on", this.tenderCurrent.verified);
+  this.infoHashtag.innerHTML = this.tenderCurrent.tags
     .map((tag) => `<span class="hashtag"># ${tag}</span>`)
     .join("");
-  this.infoBio.textContent = this.tenderCurent.bio;
-  this.card.style.backgroundImage = `url(${this.tenderCurent.photos[0]})`;
-  this.cardPagination.innerHTML = this.tenderCurent.photos
+  this.infoBio.textContent = this.tenderCurrent.bio;
+  this.card.style.backgroundImage = `url(${this.tenderCurrent.photos[0]})`;
+  this.cardPagination.innerHTML = this.tenderCurrent.photos
     .map((photo, i, photos) => {
       const pWidth = 100 / photos.length;
       return `<span style="width: ${pWidth}%" class="pagination ${
@@ -217,16 +278,31 @@ Tender.prototype._render = function () {
 };
 
 Tender.prototype._start = function () {
-  this._initValues();
   this._loadData();
+  this._initValues();
   this._loadElements();
   this._loadEvents();
-  this.tenderCurent = this.data[this.currtentIndex];
-  this.tenderContinue = this.data[this.currtentIndex + 1];
   this._render();
 };
 
 // Utils
+
+Tender.prototype._nextOrPrevPhoto = function (step) {
+  const photosLength = this.tenderCurrent.photos.length;
+  this.photoIndex = (this.photoIndex + step + photosLength) % photosLength;
+  this.card.style.backgroundImage = `url(${
+    this.tenderCurrent.photos[this.photoIndex]
+  })`;
+  this.cardPagination.innerHTML = this.tenderCurrent.photos
+    .map((photo, i, photos) => {
+      const pWidth = 100 / photos.length;
+      return `<span style="width: ${pWidth}%" class="pagination ${
+        i === this.photoIndex ? "active" : ""
+      }"></span>`;
+    })
+    .join("");
+};
+
 Tender.prototype._mapElements = function (sources, fn) {
   for (key in sources) {
     this[key] = fn(sources[key]);
@@ -239,4 +315,31 @@ Tender.prototype._mapValues = function (sources) {
   }
 };
 
-new Tender()._start();
+Tender.prototype._createRandomTender = function (
+  min = 0,
+  max = this.data.length - 1,
+  isFirst = false
+) {
+  let oldsIndex = [this.currtentIndex, this.continueIndex];
+  for (let i = 0; i < 2; i++) {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while (oldsIndex.includes(newIndex));
+    if (isFirst) {
+      if (i === 0) {
+        this.currtentIndex = newIndex;
+        oldsIndex.push(newIndex);
+      } else {
+        this.continueIndex = newIndex;
+      }
+    } else {
+      this.currtentIndex = this.continueIndex;
+      this.continueIndex = newIndex;
+      return;
+    }
+  }
+};
+
+const mokiTender = new Tender();
+mokiTender._start();
