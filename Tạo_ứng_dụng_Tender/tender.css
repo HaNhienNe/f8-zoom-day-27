@@ -3,7 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html,
+body {
+  overscroll-behavior: none;
+}
 body {
   display: flex;
   align-items: center;
@@ -36,6 +39,37 @@ body {
   background-size: cover;
   background-position: center;
   user-select: none;
+  touch-action: none;
+}
+
+.card.like {
+  border: 8px double #22c55e;
+  border-radius: 8px;
+}
+
+.card.like::after {
+  content: "Like";
+  text-align: end;
+  padding: 12px;
+  color: transparent;
+  -webkit-text-stroke: 1px #22c55e;
+  display: block;
+  font-size: 60px;
+}
+
+.card.unlike {
+  border: 8px double #dc3545;
+  border-radius: 8px;
+}
+
+.card.unlike::after {
+  content: "UnLike";
+  text-align: end;
+  padding: 12px;
+  color: transparent;
+  -webkit-text-stroke: 1px #dc3545;
+  display: block;
+  font-size: 60px;
 }
 
 .card.card__continue {

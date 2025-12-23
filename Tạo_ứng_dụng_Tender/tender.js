@@ -145,6 +145,7 @@ const inits = {
   end: 0,
   range: 0,
   photoIndex: 0,
+  canChangePhoto: true,
 };
 
 function Tender() {}
@@ -184,53 +185,74 @@ Tender.prototype._loadData = function () {
 };
 
 Tender.prototype._loadEvents = function () {
-  this.card.addEventListener("pointerdown", (e) => {
-    this.canMove = true;
-    this.start = e.clientX;
-    this.end = this.start;
-  });
+  this.card.addEventListener(
+    "pointerdown",
+    (e) => {
+      e.preventDefault();
+      this.card.setPointerCapture(e.pointerId);
+      this.card.style.transition = `none`;
+      this.canMove = true;
+      this.start = e.clientX;
+      this.end = this.start;
+    },
+    { passive: false }
+  );
 
   this.card.addEventListener("pointermove", (e) => {
     if (!this.canMove) return;
-    this.card.style.transition = `none`;
+
     this.end = e.clientX;
     this.range = this.start - this.end;
-    this.card.style.transform = `translateX(${this.range * -1}px)`;
+    console.log(this.range);
+
+    if (this.raf) return;
+    this.card.style.transition = `transform 0.1s ease`;
+    this.raf = requestAnimationFrame(() => {
+      const direction = this.range / Math.abs(this.range);
+      const rect = this.card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const scale = Math.max(0.8, 1 - x / this.card.offsetWidth);
+      const rotate = Math.min(10, (this.range / this.card.offsetWidth) * 25);
+      this.card.style.transform = ` scale(${scale}) rotate(${rotate}deg)`;
+      this.raf = null;
+      if (direction < 0) {
+        this.card.classList.remove("unlike");
+        this.card.classList.add("like");
+      } else {
+        this.card.classList.remove("like");
+        this.card.classList.add("unlike");
+      }
+    });
+
+    this.cardPagination.style.display = "none";
+    setTimeout(() => {
+      this.card.style.transition = `none`;
+    }, 300);
   });
 
-  this.card.addEventListener("pointerup", (e) => {
+  document.addEventListener("pointerup", (e) => {
     console.log("pointerup");
+    if (!this.canMove) return;
+    this.range = this.start - this.end;
     this.canMove = false;
     const isContinue =
       Math.abs(this.range / this.card.offsetWidth) >= this.threshold;
-    this.card.style.transition = `all .3s ease`;
+    this.card.classList.remove("like");
+    this.card.classList.remove("unlike");
     if (isContinue) {
-      this.card.style.transform = "scale(0)";
-      this.card.style.opacity = "0";
-      setTimeout(() => {
-        this._createRandomTender();
-        this._render();
-      }, 300);
-    } else {
-      this.card.style.transform = `translateX(0px)`;
+      console.log("zo day");
+      this._createRandomTender();
+      this._render();
     }
+    this.card.style.transform = `translateX(0px)`;
     const rect = this.card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const isNextPhoto = x >= this.card.offsetWidth / 2;
-
     if (isNextPhoto && this.range === 0) {
       this._nextOrPrevPhoto(1);
     } else if (this.range === 0) {
       this._nextOrPrevPhoto(-1);
     }
-  });
-
-  this.card.addEventListener("transitionend", (e) => {
-    if (e.propertyName !== "transform") return;
-
-    this.card.style.transition = `none`;
-    this.card.style.transform = `scale(1)`;
-    this.card.style.opacity = "1";
     this.start = 0;
     this.end = 0;
     this.range = 0;
@@ -239,6 +261,7 @@ Tender.prototype._loadEvents = function () {
 
 Tender.prototype._render = function () {
   this.photoIndex = 0;
+  this.card.style.transition = "backgound-image 0.3s ease";
   this.tenderCurrent = this.data[this.currtentIndex];
   this.tenderContinue = this.data[this.continueIndex];
   this.infoName.textContent = this.tenderCurrent.name;
@@ -288,6 +311,9 @@ Tender.prototype._start = function () {
 // Utils
 
 Tender.prototype._nextOrPrevPhoto = function (step) {
+  if (!this.canChangePhoto) return;
+  this.canChangePhoto = false;
+  this.card.style.transition = "background 0.3s ease";
   const photosLength = this.tenderCurrent.photos.length;
   this.photoIndex = (this.photoIndex + step + photosLength) % photosLength;
   this.card.style.backgroundImage = `url(${
@@ -301,6 +327,11 @@ Tender.prototype._nextOrPrevPhoto = function (step) {
       }"></span>`;
     })
     .join("");
+
+  setTimeout(() => {
+    this.canChangePhoto = true;
+    this.card.style.transition = "none";
+  }, 300);
 };
 
 Tender.prototype._mapElements = function (sources, fn) {
