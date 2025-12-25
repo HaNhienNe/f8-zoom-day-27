@@ -11,9 +11,9 @@ const DATA = `[
     "distance": 3,
     "verified": true,
     "photos": [
+      "./images/img1_2.png",
       "./images/img1.png",
       "./images/img1_1.png",
-      "./images/img1_2.png",
       "./images/img1_3.png"
     ],
     "tags": ["Harry poster", "Hot yoga", "Self care"],
@@ -48,8 +48,8 @@ const DATA = `[
     "distance": 2,
     "verified": true,
     "photos": [
-      "./images/img3.png",
       "./images/img3_1.png",
+      "./images/img3.png",
       "./images/img3_2.png"
     ],
     "tags": ["Street photography", "Night drives", "Indie music"],
@@ -103,8 +103,8 @@ const DATA = `[
     "distance": 12,
     "verified": false,
     "photos": [
-      "./images/img6.png",
-      "./images/img6_2.png"
+      "./images/img6_2.png",
+      "./images/img6.png"
     ],
     "tags": ["Sunset chasing", "Film cameras", "Slow living"],
     "bio": "Romantic at heart, adventurous by nature. I love traveling without plans, capturing moments on film, and living life a little slower than everyone else."
@@ -114,12 +114,16 @@ const DATA = `[
 
 const refs = {
   app: ".tender",
+  tenderCards: ".tender__cards",
+  tenderLikeds: ".tender__likeds",
+  tenderNavigation: ".tender__navigation",
   card: ".card",
   cardPagination: ".card__pagination",
   infoName: ".info__name",
   infoAge: ".info__age",
   infoStatus: ".info__status",
   infoMoreButton: ".info__more",
+  infoDistance: ".info__distance",
   infoHashtag: ".info__hashtag",
   infoBio: ".info__bio",
   unlikeButton: ".button__unlike",
@@ -134,6 +138,7 @@ const refs = {
 
 const refsMulti = {
   paginations: "card__pagination pagination",
+  navigatonItems: ".tender__navigation button",
 };
 
 const inits = {
@@ -146,6 +151,7 @@ const inits = {
   range: 0,
   photoIndex: 0,
   canChangePhoto: true,
+  likedList: [2, 4],
 };
 
 function Tender() {}
@@ -164,6 +170,7 @@ Tender.prototype._loadElements = function () {
     continueInfoName: ".card__continue .info__name",
     continueInfoAge: ".card__continue .info__age",
     continueInfoStatus: ".card__continue .info__status",
+    continueInfoDistance: ".card__continue .info__distance",
     continueInfoMoreButton: ".card__continue .info__more",
     continueInfoHashtag: ".card__continue .info__hashtag",
     continueInfoBio: ".card__continue .info__bio",
@@ -185,6 +192,31 @@ Tender.prototype._loadData = function () {
 };
 
 Tender.prototype._loadEvents = function () {
+  // Home navigation
+  this.navigationHome.addEventListener("click", () => {
+    this.tenderCards.style.display = "flex";
+    this.tenderLikeds.style.display = "none";
+    this.navigatonItems.forEach((nav) => nav.classList.remove("active"));
+    this.navigationHome.classList.add("active");
+  });
+
+  // Exentison navigation
+  this.navigationExtension.addEventListener("click", () => {});
+
+  // Liked navigation
+  this.navigationLiked.addEventListener("click", () => {
+    this.tenderCards.style.display = "none";
+    this.tenderLikeds.style.display = "flex";
+    this.navigatonItems.forEach((nav) => nav.classList.remove("active"));
+    this.navigationLiked.classList.add("active");
+  });
+
+  // Chat navigation
+  this.navigationChat.addEventListener("click", () => {});
+
+  // Profile navigation
+  this.navigationProfile.addEventListener("click", () => {});
+
   this.card.addEventListener(
     "pointerdown",
     (e) => {
@@ -203,7 +235,6 @@ Tender.prototype._loadEvents = function () {
 
     this.end = e.clientX;
     this.range = this.start - this.end;
-    console.log(this.range);
 
     if (this.raf) return;
     this.card.style.transition = `transform 0.1s ease`;
@@ -231,7 +262,6 @@ Tender.prototype._loadEvents = function () {
   });
 
   document.addEventListener("pointerup", (e) => {
-    console.log("pointerup");
     if (!this.canMove) return;
     this.range = this.start - this.end;
     this.canMove = false;
@@ -240,7 +270,6 @@ Tender.prototype._loadEvents = function () {
     this.card.classList.remove("like");
     this.card.classList.remove("unlike");
     if (isContinue) {
-      console.log("zo day");
       this._createRandomTender();
       this._render();
     }
@@ -268,6 +297,9 @@ Tender.prototype._render = function () {
   this.infoName.textContent = this.tenderCurrent.name;
   this.infoAge.textContent = this.tenderCurrent.age;
   this.infoStatus.classList.toggle("on", this.tenderCurrent.verified);
+  this.infoDistance.textContent = `${Number.parseFloat(
+    this.tenderCurrent.distance ?? 0
+  ).toFixed(1)} km`;
   this.infoHashtag.innerHTML = this.tenderCurrent.tags
     .map((tag) => `<span class="hashtag"># ${tag}</span>`)
     .join("");
@@ -286,6 +318,7 @@ Tender.prototype._render = function () {
   this.continueInfoName.textContent = this.tenderContinue.name;
   this.continueInfoAge.textContent = this.tenderContinue.age;
   this.continueInfoStatus.classList.toggle("on", this.tenderContinue.verified);
+  this.continueInfoDistance.textContent = `${this.tenderContinue.distance} km`;
   this.continueInfoHashtag.innerHTML = this.tenderContinue.tags
     .map((tag) => `<span class="hashtag"># ${tag}</span>`)
     .join("");

@@ -69,6 +69,10 @@ body {
   display: inline;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 .btn {
   background-color: transparent;
   border: none;
