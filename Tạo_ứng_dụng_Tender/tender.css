@@ -51,10 +51,10 @@ body {
   content: "Like";
   text-align: end;
   padding: 12px;
-  color: transparent;
+  color: rgba(198, 235, 195, 0.377);
   -webkit-text-stroke: 1px #22c55e;
   display: block;
-  font-size: 60px;
+  font-size: 100px;
 }
 
 .card.unlike {
@@ -66,10 +66,10 @@ body {
   content: "UnLike";
   text-align: end;
   padding: 12px;
-  color: transparent;
+  color: #f3e9ea83;
   -webkit-text-stroke: 1px #dc3545;
   display: block;
-  font-size: 60px;
+  font-size: 100px;
 }
 
 .card.card__continue {

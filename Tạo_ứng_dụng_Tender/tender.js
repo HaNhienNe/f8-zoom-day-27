@@ -213,7 +213,7 @@ Tender.prototype._loadEvents = function () {
       const x = e.clientX - rect.left;
       const scale = Math.max(0.8, 1 - x / this.card.offsetWidth);
       const rotate = Math.min(10, (this.range / this.card.offsetWidth) * 25);
-      this.card.style.transform = ` scale(${scale}) rotate(${rotate}deg)`;
+      this.card.style.transform = ` scale(${scale}) rotate(${rotate * 1}deg)`;
       this.raf = null;
       if (direction < 0) {
         this.card.classList.remove("unlike");
@@ -253,6 +253,7 @@ Tender.prototype._loadEvents = function () {
     } else if (this.range === 0) {
       this._nextOrPrevPhoto(-1);
     }
+    this.cardPagination.style.display = "flex";
     this.start = 0;
     this.end = 0;
     this.range = 0;
