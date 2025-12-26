@@ -7,9 +7,10 @@ const DATA = `[
     "age": 22,
     "gender": "female",
     "job": "Content Creator",
-    "location": "Ho Chi Minh City",
+    "location": "Ho Chi Minh",
     "distance": 3,
     "verified": true,
+    "status": true,
     "photos": [
       "./images/img1_2.png",
       "./images/img1.png",
@@ -25,9 +26,10 @@ const DATA = `[
     "age": 24,
     "gender": "female",
     "job": "Marketing Executive",
-    "location": "Ho Chi Minh City",
+    "location": "Ho Chi Minh",
     "distance": 5,
     "verified": false,
+    "status": false,
     "photos": [
       "./images/img2.png",
       "./images/img2_1.png",
@@ -44,9 +46,10 @@ const DATA = `[
     "age": 27,
     "gender": "male",
     "job": "Photographer",
-    "location": "Ho Chi Minh City",
+    "location": "Ho Chi Minh",
     "distance": 2,
     "verified": true,
+    "status": true,
     "photos": [
       "./images/img3_1.png",
       "./images/img3.png",
@@ -61,9 +64,10 @@ const DATA = `[
     "age": 21,
     "gender": "female",
     "job": "University Student",
-    "location": "Ho Chi Minh City",
+    "location": "Ho Chi Minh",
     "distance": 6,
     "verified": false,
+    "status": false,
     "photos": [
       "./images/img4.png",
       "./images/img4_4.png",
@@ -80,9 +84,10 @@ const DATA = `[
     "age": 29,
     "gender": "male",
     "job": "Startup Founder",
-    "location": "Ho Chi Minh City",
+    "location": "Ho Chi Minh",
     "distance": 8,
     "verified": true,
+    "status": true,
     "photos": [
       "./images/img5.png",
       "./images/img5_1.png",
@@ -102,6 +107,7 @@ const DATA = `[
     "location": "Da Nang",
     "distance": 12,
     "verified": false,
+    "status": false,
     "photos": [
       "./images/img6_2.png",
       "./images/img6.png"
@@ -151,7 +157,7 @@ const inits = {
   range: 0,
   photoIndex: 0,
   canChangePhoto: true,
-  likedList: [2, 4],
+  likedList: [2, 4, 3],
 };
 
 function Tender() {}
@@ -209,6 +215,7 @@ Tender.prototype._loadEvents = function () {
     this.tenderLikeds.style.display = "flex";
     this.navigatonItems.forEach((nav) => nav.classList.remove("active"));
     this.navigationLiked.classList.add("active");
+    this._renderLikedlist();
   });
 
   // Chat navigation
@@ -249,10 +256,17 @@ Tender.prototype._loadEvents = function () {
       if (direction < 0) {
         this.card.classList.remove("unlike");
         this.card.classList.add("like");
+        if (!this.likedList.includes(this.tenderCurrent.id)) {
+          this.likedList.push(this.tenderCurrent.id);
+        }
       } else {
         this.card.classList.remove("like");
         this.card.classList.add("unlike");
+        this.likedList = this.likedList.filter(
+          (id) => this.tenderCurrent.id !== id
+        );
       }
+      console.log(this.likedList);
     });
 
     this.cardPagination.style.display = "none";
@@ -332,6 +346,43 @@ Tender.prototype._render = function () {
       }"></span>`;
     })
     .join("");
+};
+
+Tender.prototype._renderLikedlist = function () {
+  const likedListHtml = this.likedList
+    .map((item) => this.data.find((tender) => tender.id === item))
+    .map((liked) => {
+      return `
+        <div class="liked__card">
+          <div class="liked__card__content" style="background-image: url('${
+            liked.photos[0]
+          }')"></div>
+          <div class="liked__card__info">
+            <div class="liked__card__infobasic">
+              <span class="liked__card__name"
+                >${liked.name}<span class="like__card__status ${
+        liked.status ? "on" : ""
+      }"></span
+              ></span>
+              <p class="liked__card__location">
+                <i class="ri-map-pin-2-fill"></i>
+                <span class="liked__card__city">${liked.location}</span>
+                <span class="liked__card__distance">${Number.parseFloat(
+                  liked.distance
+                ).toFixed(1)} km</span>
+              </p>
+            </div>
+            <button class="btn btn-small btn-circle button__start">
+              <i class="ri-star-fill"></i>
+            </button>
+          </div>
+        </div>
+    `;
+    })
+    .join("");
+  const headingLikedlist = `<h3 class="liked__recently blinker-light w-100">Recently Liked</h3>`;
+
+  this.tenderLikeds.innerHTML = `${headingLikedlist}${likedListHtml}`;
 };
 
 Tender.prototype._start = function () {
